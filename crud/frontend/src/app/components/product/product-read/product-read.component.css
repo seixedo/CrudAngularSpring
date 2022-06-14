@@ -1,0 +1,23 @@
+table{
+    position:static;
+    width: 100%;
+}
+
+.mat-column-id{
+    font-style:italic;
+}
+
+.mat-column-value{
+    font-weight: bold;
+}
+
+
+i.edit{
+    color:rgb(103, 103, 253)
+}
+
+  i.delete{
+      color:rgb(255, 130, 130);
+      margin-left: 10px;
+      
+  }
