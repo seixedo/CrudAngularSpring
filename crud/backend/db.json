@@ -1,0 +1,19 @@
+{
+  "products": [
+    {
+      "id": 1,
+      "name": "Computador",
+      "value": 99.9
+    },
+    {
+      "id": 2,
+      "name": "Carro",
+      "value": 9999.9
+    },
+    {
+      "id": 3,
+      "name": "Lapis",
+      "value": 0.9
+    }
+  ]
+}
