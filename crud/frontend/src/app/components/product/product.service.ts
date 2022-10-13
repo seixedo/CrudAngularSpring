@@ -23,6 +23,8 @@ baseUrl="http://localhost:8080/produtos"
   }
 
   create(product:Product): Observable<Product>{
+    console.log(product.alterado);
+    console.log(product.inserido);
     return this.http.post<Product>(this.baseUrl,product)
 
   }

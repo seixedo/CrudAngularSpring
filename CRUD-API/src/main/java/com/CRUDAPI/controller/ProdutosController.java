@@ -2,6 +2,10 @@ package com.CRUDAPI.controller;
 
 import java.awt.print.Printable;
 import java.io.Console;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,8 +29,12 @@ import com.CRUDAPI.repository.ProdutosRepository;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.databind.json.JsonMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.google.gson.Gson;
 
+import ch.qos.logback.classic.pattern.DateConverter;
 import ch.qos.logback.core.net.ObjectWriter;
 
 @RestController
@@ -43,6 +51,10 @@ public List<Produtos> list(){
 @CrossOrigin(origins = "*")
 @PostMapping("/produtos")
 public Produtos adicionar(@RequestBody Produtos produtos) {
+	System.out.println(produtos.getAlterado());
+	System.out.println(produtos.getInserido());
+	produtos.setAlterado(LocalDateTime.now());
+	produtos.setInserido(LocalDateTime.now());
 	return produtosRepository.save(produtos);
 }
 
@@ -51,9 +63,12 @@ public Produtos adicionar(@RequestBody Produtos produtos) {
 @CrossOrigin(origins = "*")
 @GetMapping("/produtos/{id}")
 public String getProduct(@PathVariable("id") Long id) throws JsonProcessingException {
-	ObjectMapper mapper = new ObjectMapper();
+	ObjectMapper mapper = JsonMapper.builder()
+            .addModule(new JavaTimeModule())
+            .build();
 	Optional<Produtos> produto ;
 	produto = produtosRepository.findById(id);
+	System.out.print(produto);
 	String JsonRetorno= mapper.writeValueAsString(produto.get());
 	System.out.print(JsonRetorno);
 	return JsonRetorno;
@@ -61,15 +76,14 @@ public String getProduct(@PathVariable("id") Long id) throws JsonProcessingExcep
 @PutMapping("produtos/{id}")
 @CrossOrigin(origins="*")
 public void PrepupdateProduct(@Param("id")Long id,@Param("name") String name,@Param("Value") Double value,@RequestBody Produtos produto) {
-	String jsonInString	= new Gson().toJson(produto);
-	
-	name=produto.getname();
-	value=produto.getvalue();
+	name=produto.getName();
+	value=produto.getValue();
 	id=produto.getId();
+	LocalDateTime Alterado = LocalDateTime.now();
 	System.out.print(name);
 	System.out.print(value);
 	System.out.print(id);
-	produtosRepository.updateProduct(id, name, value);
+	produtosRepository.updateProduct(id, name, value,Alterado);
 
 }
 

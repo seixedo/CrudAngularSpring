@@ -33,6 +33,8 @@ import { ProductReadComponent } from './components/product/product-read/product-
 import localePt from'@angular/common/locales/pt'
 import { registerLocaleData } from '@angular/common';
 import { ProductUpdateComponent } from './components/product/product-update/product-update.component';
+import { ProductLogComponent } from './components/product/product-log/product-log.component';
+import { LocalDateTimePipe } from './shared/pipe/local-date-time.pipe';
 registerLocaleData(localePt)
 
 @NgModule({
@@ -46,7 +48,9 @@ registerLocaleData(localePt)
     RedDirective,
     ProductCreateComponent,
     ProductReadComponent,
-    ProductUpdateComponent
+    ProductUpdateComponent,
+    ProductLogComponent,
+    LocalDateTimePipe
   ],
   imports: [
   MatToolbarModule,
@@ -69,7 +73,7 @@ registerLocaleData(localePt)
     
   ],
   providers: [{provide:LOCALE_ID,
-  useValue: 'pt-br'}
+  useValue: 'pt-br'}, LocalDateTimePipe
     
 
   ],

@@ -13,7 +13,7 @@ import { MatSort, Sort } from '@angular/material/sort';
 })
 
 export class ProductReadComponent implements OnInit,AfterViewInit{
-displayedColumns: string[]=['id','name','value','actions']
+displayedColumns: string[]=['id','name','value','inserido','alterado','actions']
 products: Product[] =[]
 dataSource=new MatTableDataSource<Product>(this.products);
 
@@ -26,6 +26,10 @@ dataSource=new MatTableDataSource<Product>(this.products);
       this.dataSource = new MatTableDataSource<Product>(products)
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+      var arrAlterado
+      arrAlterado = this.dataSource.data[0].alterado.split("")
+      console.log(arrAlterado)
+
     
     })
   }
